@@ -143,7 +143,7 @@ public class IBookService extends ServiceUtils implements BookService {
                 case 0:
                     ordersBy.add(cb.asc(root.get("id"))); break;
                 case 1:
-                    ordersBy.add(cb.asc(root.get("name"))); break;
+                    ordersBy.add(cb.asc(root.get("title"))); break;
                 default :
                     ordersBy.add(cb.asc(root.get("id"))); break;
             }

@@ -41,7 +41,7 @@ public class BaseEntity implements Serializable {
     @LastModifiedDate
     private Date lastUpdatedDate;
 
-    @Column(name = "created_by", length=64, nullable=false)
+    @Column(name = "created_by", length=64)
     @CreatedBy
     private String createdBy;
 
