@@ -30,16 +30,21 @@ public class BookController {
         this.service = service;
     }
 
-    @GetMapping("/pss")
+    @GetMapping("/list")
     public ResponseEntity<DatatableResponse> data(PssFilter filter){
         Long recordTotal = service.count(filter);
+        if(filter.getDraw() == null) filter.setDraw(1);
+        if(filter.getLength() == null) filter.setLength(25);
+        if(filter.getStart() == null) filter.setStart(0);
         List<BookResponse> listData = service.filter(filter);
         return ResponseEntity.ok(DatatableResponse.builder()
                 .code(SUCCESSFUL).message("Sukses").draw(filter.getDraw())
                 .data(listData)
                 .recordsFiltered(recordTotal)
                 .recordsTotal(recordTotal)
-                .search(filter.getSearch().get(PssConstant.PSS_SEARCH_VAL))
+                .search(
+                        (filter.getSearch() != null ? filter.getSearch().get(PssConstant.PSS_SEARCH_VAL) : null)
+                )
                 .build());
     }
 

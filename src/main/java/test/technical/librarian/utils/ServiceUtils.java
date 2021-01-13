@@ -77,7 +77,7 @@ public class ServiceUtils {
 
             //Get ID
             expr = new Expression(o, "getId", new Object[0]);
-            Long id = (Long) expr.getValue();
+            String id = (String) expr.getValue();
 
             //Get IS_DELETED
             expr = new Expression(o, "isDeleted", new Object[0]);

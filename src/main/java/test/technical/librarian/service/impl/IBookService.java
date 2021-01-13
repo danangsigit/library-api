@@ -135,7 +135,7 @@ public class IBookService extends ServiceUtils implements BookService {
         Sort.Direction direction = Sort.Direction.ASC;
 
         List<Order> ordersBy = new ArrayList<>();
-        if(!filter.getOrder().isEmpty()) {
+        if(filter.getOrder() != null && !filter.getOrder().isEmpty()) {
             String colidx = filter.getOrder().get(0).get(PssConstant.PSS_ORDER_COLUMN);
             direction = Sort.Direction.fromString(filter.getOrder().get(0).get(PssConstant.PSS_ORDER_DIRECTION));
 
