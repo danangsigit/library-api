@@ -24,7 +24,7 @@ public class SwaggerConfig {
 
         return new Docket(DocumentationType.SWAGGER_2).select()
                 .apis(RequestHandlerSelectors
-                        .basePackage("test.technical.librarian"))
+                        .basePackage("test.technical.librarian.controller"))
                 .paths(PathSelectors.any())
                 .build().apiInfo(apiEndPointsInfo());
     }
@@ -33,10 +33,10 @@ public class SwaggerConfig {
 
         return new ApiInfoBuilder().title("REST API Documentation")
                 .description("Technical Test - Back End Developer PT. Kreasi Rumah Aplikasi")
-                .contact(new Contact("Danang Sigit Prasetya", "https://www.jasaonline.net", "danangsigit@gmail.com"))
+                .contact(new Contact("Danang Sigit Prasetya", "www.jasaonline.net", "danangsigit@gmail.com"))
                 .license("Apache 2.0")
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
-                .version("1.0-SNAPSHOT")
+                .version(version)
                 .build();
     }
 
