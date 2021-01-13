@@ -28,7 +28,7 @@ public class ServiceUtils {
             Statement stmt;
 
             expr = new Expression(source, "getId", new Object[0]);
-            Long id = (Long) expr.getValue();
+            String id = (String) expr.getValue();
             stmt = new Statement(dest, "setId", new Object[] {id});
             stmt.execute();
 

@@ -6,14 +6,12 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import test.technical.librarian.constant.PssConstant;
-import test.technical.librarian.dto.request.BookRequest;
 import test.technical.librarian.dto.request.PssFilter;
-import test.technical.librarian.dto.response.BookResponse;
-import test.technical.librarian.dto.response.DatatableResponse;
-import test.technical.librarian.dto.response.DefaultResponse;
-import test.technical.librarian.dto.response.Select2Response;
+import test.technical.librarian.dto.request.StudentRequest;
+import test.technical.librarian.dto.response.*;
 import test.technical.librarian.exception.RestRuntimeException;
-import test.technical.librarian.service.BookService;
+import test.technical.librarian.model.Student;
+import test.technical.librarian.service.StudentService;
 import test.technical.librarian.utils.ControllerHelper;
 
 import java.util.List;
@@ -23,13 +21,13 @@ import static test.technical.librarian.constant.ErrorCode.SUCCESSFUL;
 import static test.technical.librarian.constant.ErrorCode.UNKNOWN_ERROR;
 
 @RestController
-@RequestMapping("/api/book")
+@RequestMapping("/api/student")
 @Slf4j
-public class BookController {
-    private final BookService service;
+public class StudentController {
+    private final StudentService service;
 
     @Autowired
-    public BookController(BookService service) {
+    public StudentController(StudentService service) {
         this.service = service;
     }
 
@@ -39,7 +37,7 @@ public class BookController {
         if(filter.getDraw() == null) filter.setDraw(1);
         if(filter.getLength() == null) filter.setLength(25);
         if(filter.getStart() == null) filter.setStart(0);
-        List<BookResponse> listData = service.filter(filter);
+        List<StudentResponse> listData = service.filter(filter);
         return ResponseEntity.ok(DatatableResponse.builder()
                 .code(SUCCESSFUL).message("Sukses").draw(filter.getDraw())
                 .data(listData)
@@ -54,13 +52,13 @@ public class BookController {
     @GetMapping("/{id}")
     public ResponseEntity<DefaultResponse> get(@PathVariable String id){
 
-        BookResponse response = null;
+        StudentResponse response = null;
         try {
-            Optional<BookResponse> book = service.findOne(id);
-            if(book.isPresent())
-            response = book.get();
+            Optional<StudentResponse> student = service.findOne(id);
+            if(student.isPresent())
+            response = student.get();
         } catch(Exception e) {
-            log.error("Gagal get data buku {}", e.getMessage());
+            log.error("Gagal get data Student {}", e.getMessage());
         }
         return ResponseEntity.ok(DefaultResponse.builder().data(response).code(SUCCESSFUL).message("get data Sukses").build());
     }
@@ -72,7 +70,7 @@ public class BookController {
         } catch(DataIntegrityViolationException e) {
             service.setDelete(id);
         } catch(Exception e) {
-            throw new RestRuntimeException(UNKNOWN_ERROR, "Gagal menghapus buku", e);
+            throw new RestRuntimeException(UNKNOWN_ERROR, "Gagal menghapus Student", e);
         }
         return ResponseEntity.ok(DefaultResponse.builder().code(SUCCESSFUL).message("Delete Sukses").build());
     }
@@ -82,7 +80,7 @@ public class BookController {
 
         PssFilter filter = ControllerHelper.buildSelect2Filter(q, page, 1, "asc");
         Long recordTotal = service.count(filter);
-        List<BookResponse> listData = service.filter(filter);
+        List<StudentResponse> listData = service.filter(filter);
         return ResponseEntity.ok(Select2Response.builder()
                 .code(SUCCESSFUL).message("Sukses")
                 .results(listData)
@@ -91,13 +89,13 @@ public class BookController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<DefaultResponse> save(@RequestBody BookRequest dto) {
-        BookResponse response = null;
+    public ResponseEntity<DefaultResponse> save(@RequestBody StudentRequest dto) {
+        StudentResponse response = null;
         if(dto.getId()!=null) {
             response = service.update(dto).get();
         } else {
             response = service.save(dto);
         }
-        return ResponseEntity.ok(DefaultResponse.builder().data(response).code(SUCCESSFUL).message("Success").build());
+        return ResponseEntity.ok(DefaultResponse.builder().code(SUCCESSFUL).data(response).message("Success").build());
     }
 }

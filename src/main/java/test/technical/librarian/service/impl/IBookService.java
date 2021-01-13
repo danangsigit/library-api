@@ -191,7 +191,8 @@ public class IBookService extends ServiceUtils implements BookService {
     private Book getOne(String id) {
         Optional<Book> op = dao.findById(id);
         if(!op.isPresent()) {
-            throw new RestRuntimeException(DATA_NOTFOUND, "book with id:"+id+" not found");
+            log.error("book with id:{} not found", id);
+            return null;
         }
         return op.get();
     }
