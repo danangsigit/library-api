@@ -25,7 +25,7 @@ public class Student extends BaseEntity {
     @Column(name = "nis", nullable = false)
     private String nis;
 
-    @Column(name = "nis", columnDefinition="TEXT")
+    @Column(name = "address", columnDefinition="TEXT")
     private String address;
 
     @Column(length = 15, name = "phone_number")

@@ -6,11 +6,11 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-public interface BaseService<T extends Object, ID extends Serializable> {
+public interface BaseService<T extends Object, ID extends Serializable, R extends Object> {
 
-    T save(T s);
+    T save(R s);
 
-    Optional<T> update(T s);
+    Optional<T> update(R s);
 
     Optional<T> findOne(ID id);
 
