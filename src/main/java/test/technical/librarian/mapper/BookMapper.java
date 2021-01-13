@@ -7,6 +7,7 @@ import test.technical.librarian.dto.response.BookResponse;
 import test.technical.librarian.model.Book;
 
 import java.util.List;
+import java.util.Set;
 
 @Mapper(componentModel = "spring", unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface BookMapper {

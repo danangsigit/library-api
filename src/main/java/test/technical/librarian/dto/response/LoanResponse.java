@@ -8,6 +8,7 @@ import test.technical.librarian.model.Loan;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter

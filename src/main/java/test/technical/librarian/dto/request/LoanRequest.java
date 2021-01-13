@@ -13,12 +13,12 @@ import java.util.List;
 @NoArgsConstructor
 public class LoanRequest extends BaseDTO {
 
-    private List<String> books;
+    private List<String> bookIds;
     private Date dateOfLoan;
     private Date dateReturn;
     private Date dateReturned;
     private Double amountFines;
-    private String student;
+    private String studentId;
     private Loan.Verification verificationLoan;
     private Loan.Verification verificationReturned;
 }
